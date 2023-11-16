@@ -1,9 +1,9 @@
 //Array for movies category
 let movieArray = [
-"Harry Potter",
-"The Conjuring",
-'Star Wars',
-'Lord of the Rings'
+"harry potter",
+"the conjuring",
+'star wars',
+'lord of the rings'
 ]
 
 //Array for TV Category
@@ -21,6 +21,13 @@ let animalsArray = [
   "Skunk"
 ];
 
+let statesArray = [
+  "Washington",
+  "California",
+  "Miami",
+  "Texas"
+]
+
 //Buttons, variables, and arrays 
 let buttons = document.querySelectorAll('.button');
 let movieContainer = document.querySelector('.style');
@@ -29,11 +36,14 @@ let categories = document.querySelector('.categories');
 let container = document.querySelector('.container');
 let container2 = document.querySelector('.containerr');
 var chosenWord;
+var guess;
 let selectedLetters = [];
 
 function chooseWord(e){
+   
+      let buttonClick = e.target.dataset.id
      
-      if(e.target.dataset.id = "Movies"){
+      if(buttonClick === "movies"){
      //Select a random index in the array
     let random = Math.floor(Math.random() * movieArray.length);
      //Attach the chosen word to the random index
@@ -47,18 +57,31 @@ function chooseWord(e){
       let word = document.createElement('input');
       word.classList.add('style')
       movieContainer.appendChild(word);
-      console.log(word);
+      console.log(chosenWord);
       categories.style.display = "none";
       container.style.display = "none";
       container2.style.display = "block";
       container2.classList.add('container2');
     }
-  }
+  } else if(buttonClick === "TV"){
+      let random = Math.floor(Math.random() * tvShowArray.length);
+      chosenWord = movieArray[random];
+      console.log(chosenWord);
+     }
+   else if(buttonClick === "animals"){
+     let random = Math.floor(Math.random() * animalsArray.length);
+     chosenWord = animalsArray[random];
+     console.log(chosenWord);
+   }
+   else if(buttonClick === "states"){
+    let random = Math.floor(Math.random() * statesArray.length);
+    chosenWord = statesArray[random];
+    console.log(chosenWord);
+   }
   }
 
 function getGuess(e){
 
-var guess;
 
 //Loop through the letter buttons
 for(let i = 0; i < letters.length; i++){
@@ -75,13 +98,22 @@ for(let i = 0; i < letters.length; i++){
 } 
 }
 
-function checkWord(){
- //LOOP THROUGH THE MOVIE ARRAY//
-}
+function checkWord(e){
+      let buttonClick = e.target.dataset.id;
+     for(let i = 0; i < chosenWord.length; i++){
+      if(e.target.dataset.id === chosenWord[i]){
+        console.log('this works');
+      }
+      else {
+        console.log('no');
+      }
+     }
+    }
 
 letters.forEach(item => {
  item.addEventListener('click', (e) => {
    getGuess(e);
+   checkWord(e);
  })
 })
 
