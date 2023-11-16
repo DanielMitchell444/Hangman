@@ -48,9 +48,13 @@ function chooseWord(e){
     let random = Math.floor(Math.random() * movieArray.length);
      //Attach the chosen word to the random index
      chosenWord = movieArray[random];
+
+     chosenWord = chosenWord.split(' ');
+     chosenWord = chosenWord.join('');
+
      
       //Loop through the chosen word
-     for(let i = 0; i < chosenWord.length; i++){
+     for(let i = 1; i <= chosenWord.length; i++){
 
       //Create elements based on the length of the chosen word
       //Print the elements to the screen
@@ -60,8 +64,8 @@ function chooseWord(e){
       console.log(chosenWord);
       categories.style.display = "none";
       container.style.display = "none";
-      container2.style.display = "block";
-      container2.classList.add('container2');
+      container2.style.display = "flex";
+      container2.classList.add('container0');
     }
   } else if(buttonClick === "TV"){
       let random = Math.floor(Math.random() * tvShowArray.length);
