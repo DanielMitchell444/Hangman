@@ -59,6 +59,7 @@ function chooseWord(e){
       //Create elements based on the length of the chosen word
       //Print the elements to the screen
       let word = document.createElement('input');
+      word.className = "word1";
       word.classList.add('style')
       movieContainer.appendChild(word);
       console.log(chosenWord);
@@ -104,15 +105,20 @@ for(let i = 0; i < letters.length; i++){
 
 function checkWord(e){
       let buttonClick = e.target.dataset.id;
-     for(let i = 0; i < chosenWord.length; i++){
-      if(e.target.dataset.id === chosenWord[i]){
-        console.log('this works');
-      }
-      else {
-        console.log('no');
-      }
+      for(let i = 0; i < chosenWord.length; i++){
+     if(buttonClick === chosenWord[i]){
+       console.log('yes') 
+      return buttonClick;
+      
      }
-    }
+
+     else
+     {
+      console.log('no')
+      return buttonClick;
+     }
+      }
+}
 
 letters.forEach(item => {
  item.addEventListener('click', (e) => {
