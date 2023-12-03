@@ -8,10 +8,10 @@ let movieArray = [
 
 //Array for TV Category
 let tvShowArray = [
- "Breaking Bad",
- "Criminal Minds",
- "How I Met Your Mother",
- "Greys Anatomy"
+ "breaking bad",
+ "criminal minds",
+ "how i met your mother",
+ "greys anatomy"
 ]
 
 let animalsArray = [
@@ -35,11 +35,12 @@ let letters = document.querySelectorAll('.a');
 let categories = document.querySelector('.categories');
 let container = document.querySelector('.container');
 let container2 = document.querySelector('.containerr');
-var chosenWord;
+var chosenWord = []
 var guess;
 let selectedLetters = [];
 let rightLetters = [];
 let wrongLetters = [];
+let hiddenWord = [];
 let numGuesses = 0;
 let guessedLetters;
 let guess1;
@@ -64,9 +65,13 @@ function chooseWord(e){
       //Create elements based on the length of the chosen word
       //Print the elements to the screen
       let word = document.createElement('hr');
+      let letters45 = document.createElement('h1');
       word.className = "word1";
+      letters45.className = "letters45"
+      letters45.id = "letters45";
       word.id = "word";
       word.classList.add('style')
+      movieContainer.appendChild(letters45);
       movieContainer.appendChild(word);
       console.log(chosenWord);
       categories.style.display = "none";
@@ -88,8 +93,12 @@ function chooseWord(e){
        //Create elements based on the length of the chosen word
        //Print the elements to the screen
        let word = document.createElement('input');
+       let letters45 = document.createElement('h1');
        word.className = "word1";
+       letters45.className = "letters45";
+       letters45.id = "letters45"
        word.classList.add('style')
+       movieContainer.appendChild(letters45);
        movieContainer.appendChild(word);
        console.log(chosenWord);
        categories.style.display = "none";
@@ -112,8 +121,13 @@ function chooseWord(e){
        //Create elements based on the length of the chosen word
        //Print the elements to the screen
        let word = document.createElement('input');
+       let letters45 = document.createElement('h1');
+       word.className = "word1";
+       letters45.className = "letters45"
+       letters45.id = "letters45";
        word.className = "word1";
        word.classList.add('style')
+       movieContainer.appendChild(letters45);
        movieContainer.appendChild(word);
        console.log(chosenWord);
        categories.style.display = "none";
@@ -138,9 +152,13 @@ function chooseWord(e){
        //Create elements based on the length of the chosen word
        //Print the elements to the screen
        let word = document.createElement('input');
+       let letters45 = document.createElement('h1');
+       letters45.className = "letters45";
+       letters45.id = "letters45";
        word.className = "word1";
        word.classList.add('style')
        movieContainer.appendChild(word);
+       movieContainer.appendChild(letters45);
        console.log(chosenWord);
        categories.style.display = "none";
        container.style.display = "none";
@@ -169,14 +187,33 @@ for(let i = 0; i < letters.length; i++){
 }
 
 function checkWord(e){
+      //Select the letters on the screen
       let words = document.getElementsByClassName('word1');
+      let actualLetterss = document.getElementById('letters45')
      //Check to see if the chosen word has the letter
      //That the user has clicked
+     //Also check to see if the index of the chosen word is less than
+     // or greater  than 0
      //If it does, console.log right letter
-      if(chosenWord.includes(e.target.dataset.id)){
+      if(chosenWord.includes(e.target.dataset.id) 
+      && chosenWord.indexOf(e.target.dataset.id) >= 0
+      && chosenWord.indexOf(e.target.dataset.value) <= 0
+      ){
         console.log('right letter');
+        //Push right letters into the right letters arra
         rightLetters.push(e.target.dataset.id);
         console.log(rightLetters);
+        //Loop through the chosen word array
+        for(let i = 0; i < chosenWord.length; i++){
+          //Check to see if the chosen word is equal
+          //to the user clicked word
+          if(chosenWord[i] === e.target.dataset.id){
+            //Put the hidden word inside the 
+            //Hidden word array
+            hiddenWord[i] = e.target.dataset.id;
+          }
+        }
+        actualLetterss.innerHTML = hiddenWord.join(" ");
         checkWin();
         }
      //Check to see if the chosen word does not have
@@ -193,12 +230,15 @@ function checkWord(e){
 //This function checks to see if the user guessed the word
 //Correctly
 function checkWin(){
- if(chosenWord.length === rightLetters.length){
+  let actualLetterss = document.getElementById('letters45')
+ for(let i = 0; i < chosenWord.length; i++){
+ if(chosenWord.length === hiddenWord.length){
   console.log('You win');
  }
  else if(numGuesses == 5){
   console.log('you lose');
  }
+}
 }
 
 
