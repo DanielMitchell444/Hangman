@@ -36,7 +36,7 @@ let categories = document.querySelector('.categories');
 let container = document.querySelector('.container');
 let container2 = document.querySelector('.containerr');
 var chosenWord = []
-var guess;
+var guess = [];
 let selectedLetters = [];
 let rightLetters = [];
 let wrongLetters = [];
@@ -125,6 +125,7 @@ function chooseWord(e){
        word.className = "word1";
        letters45.className = "letters45"
        letters45.id = "letters45";
+       letters45.classList.add('style')
        word.className = "word1";
        word.classList.add('style')
        movieContainer.appendChild(letters45);
@@ -211,6 +212,7 @@ function checkWord(e){
             //Put the hidden word inside the 
             //Hidden word array
             hiddenWord[i] = e.target.dataset.id;
+
           }
         }
         actualLetterss.innerHTML = hiddenWord.join(" ");
@@ -231,14 +233,18 @@ function checkWord(e){
 //Correctly
 function checkWin(){
   let actualLetterss = document.getElementById('letters45')
- for(let i = 0; i < chosenWord.length; i++){
- if(chosenWord.length === hiddenWord.length){
+  let letters = document.querySelector('.letters');
+ if(chosenWord.length === rightLetters.length){
+  console.log(chosenWord.length);
+  console.log(hiddenWord.length);
   console.log('You win');
  }
  else if(numGuesses == 5){
+  for(let i = 0; i <= letters.length; i++){
+    letters[i].disabled = true;
+  }
   console.log('you lose');
  }
-}
 }
 
 
