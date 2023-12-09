@@ -36,7 +36,7 @@ let categories = document.querySelector('.categories');
 let container = document.querySelector('.container');
 let container2 = document.querySelector('.containerr');
 var chosenWord = []
-var guess = [];
+var guess;
 let selectedLetters = [];
 let rightLetters = [];
 let wrongLetters = [];
@@ -54,6 +54,12 @@ function chooseWord(e){
     let random = Math.floor(Math.random() * movieArray.length);
      //Attach the chosen word to the random index
      chosenWord = movieArray[random];
+
+     let restartBtn = document.createElement('button');
+     restartBtn.className = "restartMovie";
+     restartBtn.dataset.id = "movies";
+
+     restartBtn.innerHTML = "Restart Game";
 
      chosenWord = chosenWord.split(' ');
      chosenWord = chosenWord.join('');
@@ -73,6 +79,7 @@ function chooseWord(e){
       word.classList.add('style')
       movieContainer.appendChild(letters45);
       movieContainer.appendChild(word);
+      movieContainer.appendChild(restartBtn);
       console.log(chosenWord);
       categories.style.display = "none";
       container.style.display = "none";
@@ -125,7 +132,6 @@ function chooseWord(e){
        word.className = "word1";
        letters45.className = "letters45"
        letters45.id = "letters45";
-       letters45.classList.add('style')
        word.className = "word1";
        word.classList.add('style')
        movieContainer.appendChild(letters45);
@@ -202,8 +208,7 @@ function checkWord(e){
       ){
         console.log('right letter');
         //Push right letters into the right letters arra
-        rightLetters.push(e.target.dataset.id);
-        console.log(rightLetters);
+        
         //Loop through the chosen word array
         for(let i = 0; i < chosenWord.length; i++){
           //Check to see if the chosen word is equal
@@ -212,7 +217,8 @@ function checkWord(e){
             //Put the hidden word inside the 
             //Hidden word array
             hiddenWord[i] = e.target.dataset.id;
-
+            rightLetters.push(hiddenWord[i]);
+            console.log(rightLetters);
           }
         }
         actualLetterss.innerHTML = hiddenWord.join(" ");
@@ -232,20 +238,22 @@ function checkWord(e){
 //This function checks to see if the user guessed the word
 //Correctly
 function checkWin(){
-  let actualLetterss = document.getElementById('letters45')
-  let letters = document.querySelector('.letters');
+  let actualLetterss = document.getElementById('letters45');
+  let win = document.querySelector('.win');
  if(chosenWord.length === rightLetters.length){
-  console.log(chosenWord.length);
-  console.log(hiddenWord.length);
-  console.log('You win');
+  win.innerHTML = "You Win!"
+  for(let i = 0; i < letters.length; i++){
+   letters[i].disabled = true;
+  }
  }
  else if(numGuesses == 5){
-  for(let i = 0; i <= letters.length; i++){
+  win.innerHTML = "You lose..."
+  for(let i = 0; i < letters.length; i++){
     letters[i].disabled = true;
   }
-  console.log('you lose');
  }
 }
+
 
 
 letters.forEach(item => {
